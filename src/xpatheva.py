@@ -1,6 +1,3 @@
-#!/usr/bin/python3
-# -*- coding: utf-8 -*-
-
 import sys
 import traceback
 from PyQt5.QtWidgets import *
@@ -28,10 +25,15 @@ class XpathEva(QMainWindow):
         openFile.setShortcut('Ctrl+O')
         openFile.setStatusTip('Open new File')
         openFile.triggered.connect(self.show_dialog)
+        appQuit = QAction(QIcon('quit.png'), 'Quit', self)
+        appQuit.setShortcut('Ctrl+Q')
+        appQuit.setStatusTip('Quit')
+        appQuit.triggered.connect(self._quit)
 
         menu_bar = self.menuBar()
         fileMenu = menu_bar.addMenu('&File')
         fileMenu.addAction(openFile)
+        fileMenu.addAction(appQuit)
         
         self.filename_label_default_text = "Filename: "
         self.filename_label = QLabel(self)
@@ -120,6 +122,9 @@ class XpathEva(QMainWindow):
 
     def __del__(self):
         self.d_print("XpathEva closed")
+        
+    def _quit(self):
+        QApplication.quit()
 
 
 class XpathEvaApp(QApplication):
